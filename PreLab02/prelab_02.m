@@ -85,12 +85,18 @@ plot(imag(hdr_smpl))
 title('hdr_smpl imaginary part');
 
 %% Section 3-1
-fs = ...;
+fs = 250e6;
 ts = 1/fs;
-nFft = ...;
-t = [0:nFft - 1]*ts;
-freq = [0:nFft - 1]/nFft*fs - fs/2;
-x = ...;
-Xf = fftshift(fft(x, nFft));
-plot(freq, abs(Xf).^2)
-xlim([freq(1),freq(end)])
+nFft = [256, 256, 512, 512, 512];
+A = [2, 2, 2, 2, 4];
+f0 = 250/256*1e6 * [51, 51.5, 51, -51, 153];
+figure
+for indx = 1 : 5
+    t = (0:nFft(indx) - 1)*ts;
+    freq = (0:nFft(indx) - 1)/nFft(indx)*fs - fs/2;
+    x = A(indx)*exp(1j * 2*pi * f0(indx) * t);
+    Xf = fftshift(fft(x, nFft(indx)));
+    subplot(5, 1, indx)
+    plot(freq, abs(Xf).^2)
+    xlim([freq(1),freq(end)])
+end
