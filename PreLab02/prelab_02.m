@@ -85,6 +85,9 @@ plot(imag(hdr_smpl))
 title('hdr_smpl imaginary part');
 
 %% Section 3-1
+clc, clear, close all;
+
+% Part a - g
 fs = 250e6;
 ts = 1/fs;
 nFft = [256, 256, 512, 512, 512];
@@ -96,7 +99,63 @@ for indx = 1 : 5
     freq = (0:nFft(indx) - 1)/nFft(indx)*fs - fs/2;
     x = A(indx)*exp(1j * 2*pi * f0(indx) * t);
     Xf = fftshift(fft(x, nFft(indx)));
+    alpha = 1 / nFft(indx)^2;
     subplot(5, 1, indx)
-    plot(freq, abs(Xf).^2)
+    plot(freq, alpha * abs(Xf).^2)
     xlim([freq(1),freq(end)])
+    Fans = sprintf('F Part answer : %f',nFft(indx) * f0(indx) * ts);
+    title(Fans)
+end
+
+% Part h
+f0 = f0 + fs./nFft;
+figure
+for indx = 1 : 5
+    t = (0:nFft(indx) - 1)*ts;
+    freq = (0:nFft(indx) - 1)/nFft(indx)*fs - fs/2;
+    x = A(indx)*exp(1j * 2*pi * f0(indx) * t);
+    Xf = fftshift(fft(x, nFft(indx)));
+    alpha = 1 / nFft(indx)^2;
+    subplot(5, 1, indx)
+    plot(freq, alpha * abs(Xf).^2)
+    xlim([freq(1),freq(end)])
+    Fans = sprintf('F Part answer : %f',nFft(indx) * f0(indx) * ts);
+    title(Fans)
+end
+
+% Part i
+fs = 250e6;
+ts = 1/fs;
+nFft = [256, 256, 512, 512, 512];
+A = [2, 2, 2, 2, 4];
+f0 = 250/256*1e6 * [51, 51.5, 51, -51, 153];
+for indx = 1 : 5
+    t = (0:nFft(indx) - 1)*ts;
+    freq = (0:nFft(indx) - 1)/nFft(indx)*fs - fs/2;
+    x = A(indx)*exp(1j * 2*pi * f0(indx) * t);
+    Xf = fftshift(fft(x, nFft(indx)));
+    powerTime = sum(abs(x).^2)/ (nFft(indx));
+    powerFreq = sum(Xf*Xf')/ (nFft(indx)^2);
+    fprintf('Power in time domain: %f , Power in frequency domain: %f\n', powerTime, powerFreq);
+end
+
+% Part j
+fs = 250e6;
+ts = 1/fs;
+nFft = [256, 256];
+A = [2, 2];
+f0 = 250/256*1e6 * [51, 51.5];
+figure
+for indx = 1 : 2
+    t = (0:nFft(indx) - 1)*ts;
+    freq = (0:nFft(indx) - 1)/nFft(indx)*fs - fs/2;
+    x = A(indx)*exp(1j * 2*pi * f0(indx) * t);
+    Xf = fftshift(fft(x, nFft(indx)));
+    alpha = 1 / nFft(indx);
+    subplot(2, 1, indx)
+    Y = db(alpha * abs(Xf), 100) + 30;
+    plot(freq, Y)
+    xlim([freq(1),freq(end)])
+    Fans = sprintf('F Part answer : %f',nFft(indx) * f0(indx) * ts);
+    title(Fans)
 end
