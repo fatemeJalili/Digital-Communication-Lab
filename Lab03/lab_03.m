@@ -41,7 +41,7 @@ txSamplesDelayed = txSamplesDelayed(1 : end - channelDelayInSample);
 %Part 2
 txSamplesDelayed = txSamplesDelayed .* exp(1j*channelPhaseOffset);
 
-%Part 3
+%Part 3-12
 berList = [];
 for snr = snrMin:snrStep:snrMax
     noiseVariance = (symbolEnergy/k) ./ 10^(0.1*snr);
@@ -51,7 +51,6 @@ for snr = snrMin:snrStep:snrMax
     [detectedSymbolsIndex, rxSymbols] = pulseDemodulation(rxSamples, modulation, M, fs, nSymbolSamples, pulseName , rxReceiveMode);
     scatter(real(rxSymbols), imag(rxSymbols));
     
-    %Part 6
     if(isGray==1)
         detectedBits = matrix(detectedSymbolsIndex+1, :);
     else
