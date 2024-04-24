@@ -5,7 +5,8 @@ dataTransferDuration = 100;
 fs = 10e6; % BasbitAverageEnergyand Sampling Rate (65105 to 61.44e6 Hz)
 ts = 1/fs; % BasbitAverageEnergyand Sampling Time
 nPacketSymbols = 10000; % Number of Symbol in Each Packet
-rxReceiveMode = 0; % Receiver Detection Algorithm
+rxReceiveMode = 'matched_filter';
+% Receiver Detection Algorithm
 equalizerMode = 0; % Compensate Mode (0: No Compensation, 1: Amplitude Compensation, 2: Phase Compensation, 3: Compensation)
 %% Modulation Parameters
 modulation = 'psk'; % Modulation Name ('psk', 'pam', 'qam', 'fsk')
@@ -13,7 +14,7 @@ k = 2; % Bit Per Symbol
 M = 2^k; % Modulation Order
 nSymbolSamples = 8; % Sample Per Symbol
 Ts = nSymbolSamples*ts; % Symbol Time
-isGray = 0; % Gray Code Usage Flag
+isGray = 1; % Gray Code Usage Flag
 detectionMode = 'coherent'; % Modulation Detection Option ('coherent', 'noncoherent')
 % Pulse Shape Parameters
 pulseName = 'triangular'; % Name of Pulse Shaping Function
@@ -24,13 +25,13 @@ pulseShapingMode = 'conv';
 % Header Option
 isHeader = 0; % Flag For Having Packets with Header
 % SNR Bound for BER Plots
-snrMin = 3; % Minimum SNR (dB)
-snrMax = 3; % Maximum SNR (dB)
-snrStep = 1; % SNR Step (dB)
+snrMin = 10; % Minimum SNR (dB)
+snrMax = 10; % Maximum SNR (dB)
+snrStep = 0.5; % SNR Step (dB)
 snrDb = snrMin:snrStep:snrMax; % SNR Vector (dB)
 %% Channel Parameters
-channelDelayInSample = 0; % Channel Delay in Sample
-channelPhaseOffset = 0 * pi/180; % Channel Phase Offset
+channelDelayInSample = round(0*nSymbolSamples); % Channel Delay in Sample
+channelPhaseOffset = 30 * pi/180; % Channel Phase Offset
 channelFrequencyOffset = 0; % Channel Frequency Offset
 %% Hardware Parameters
 % Transmitter Parameters
