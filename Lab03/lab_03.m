@@ -87,7 +87,7 @@ for snr = snrMin:snrStep:snrMax
     rxSamples = alpha * rxSamples * exp(1j * theta);
     
     [detectedSymbolsIndex, rxSymbols] = pulseDemodulation(rxSamples, modulation, M, fs, nSymbolSamples, pulseName , rxReceiveMode);
-    scatter(real(rxSymbols), imag(rxSymbols));
+%     scatter(real(rxSymbols), imag(rxSymbols));
     
     if(isGray==1)
         detectedBits = matrix(detectedSymbolsIndex+1, :);
@@ -103,15 +103,15 @@ for snr = snrMin:snrStep:snrMax
     ber = sum(sum(txBit(tempIndx : end, :)~=detectedBits))/(k*size(txBit(tempIndx : end, :),1));
     berList = [berList, ber];
 end
-% subplot(2, 1, 1)
-% EbNo = (snrMin:snrStep:snrMax);
-% semilogy(EbNo, berList);
-% hold on
-% berQ = berawgn(EbNo, modulation, M, 'nondiff');
-% semilogy(EbNo, berQ);
-% legend('Simulated', 'Matlab');
-% title([num2str(M), modulation, ' bit error rate']);
+subplot(2, 1, 1)
+EbNo = (snrMin:snrStep:snrMax);
+semilogy(EbNo, berList);
+hold on
+berQ = berawgn(EbNo, modulation, M, 'nondiff');
+semilogy(EbNo, berQ);
+legend('Simulated', 'Matlab');
+title([num2str(M), modulation, ' bit error rate']);
 
-% subplot(2, 1, 2)
+subplot(2, 1, 2)
 scatter(real(rxSymbols), imag(rxSymbols))
 axis equal
