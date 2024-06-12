@@ -4,7 +4,7 @@ dataTransferDuration = 100;
 %% Receiver Parameters
 fs = 10e6; % BasbitAverageEnergyand Sampling Rate (65105 to 61.44e6 Hz)
 ts = 1/fs; % BasbitAverageEnergyand Sampling Time
-nPacketSymbols = 100000; % Number of Symbol in Each Packet
+nPacketSymbols = 1000; % Number of Symbol in Each Packet
 rxReceiveMode = 'matched_filter';
 % Receiver Detection Algorithm
 rxMode = 0;
@@ -26,8 +26,8 @@ pulseShapingMode = 'conv';
 % Header Option
 isHeader = 1; % Flag For Having Packets with Header
 % SNR Bound for BER Plots
-snrMin = 40; % Minimum SNR (dB)
-snrMax = 40; % Maximum SNR (dB)
+snrMin = 3; % Minimum SNR (dB)
+snrMax = 3; % Maximum SNR (dB)
 snrStep = 0.5; % SNR Step (dB)
 snrDb = snrMin:snrStep:snrMax; % SNR Vector (dB)
 %% Channel Parameters
@@ -36,12 +36,12 @@ channelPhaseOffset = 90 * pi/180; % Channel Phase Offset
 channelFrequencyOffset = 0; % Channel Frequency Offset
 %% Hardware Parameters
 % Transmitter Parameters
-txFc = 2400e6 + 250; % Set Transmiter Center Frequency (AD9363: 325-3800MHz) (AD9364: 70-6000MHz)
-txGain = 0; % Set Transmiter Attenutaion As a Negative Gain (-89.75 to 0 dB)
+txFc = 2400e6; % Set Transmiter Center Frequency (AD9363: 325-3800MHz) (AD9364: 70-6000MHz)
+txGain = -30; % Set Transmiter Attenutaion As a Negative Gain (-89.75 to 0 dB)
 txAddress = 'usb:0'; % Set Transmiter Identification Number
 % Receiver Parameters
 rxFc = 2400e6; % Set Receiver Center Frequency (AD9363: 325-3800MHz) (AD9364: 70-6000MHz)
-rxGain = 35; % Set Receiver Gain (-4dB to 71dB)
+rxGain = 20; % Set Receiver Gain (-4dB to 71dB)
 rxAddress = 'usb:0'; % Set Receiver Identification Number
 % Initialize ADALM-PLUTO
 if isHardware

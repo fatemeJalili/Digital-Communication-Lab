@@ -34,6 +34,13 @@ if(isHeader)
     headerSamples = txSamples(1 : size(headerBits, 1) * nSymbolSamples);
 end
 
+figure
+
+N = length(txSamples);
+TXSamples = fftshift(abs(fft(txSamples)) .^ 2) / N^2;
+freq = (-N/2:N/2 - 1)/N * fs;
+semilogy(freq, TXSamples);
+
 %% Section 3-3
 figure
 %Part 1
@@ -62,23 +69,21 @@ for snr = snrMin:snrStep:snrMax
         rxSamples = rxSamples(indx : end);
         L = length(rxSamples);
         rxSamples = rxSamples(1:floor(L/nSymbolSamples)*nSymbolSamples);
+        val1 = corr(indx);
+        val2 = headerSamples'*headerSamples;
         switch equalizerMode
             case 0
                 alpha = 1;
                 theta = 0;
             case 1
-                val1 = abs(corr(indx)).^2;
-                val2 = headerSamples'*headerSamples;
-                alpha = val2/val1;
+                alpha = abs(val2/val1);
                 theta = 0;
             case 2
                 alpha = 1;
-                theta = -angle(corr(indx));
+                theta = -angle(val1);
             case 3
-                val1 = abs(corr(indx)).^2;
-                val2 = headerSamples'*headerSamples;
-                alpha = val2/val1;
-                theta = -angle(corr(indx));
+                alpha = abs(val2/val1);
+                theta = -angle(val1);
         end
         rxSamples = alpha * rxSamples * exp(1j * theta);
     end
@@ -90,26 +95,30 @@ for snr = snrMin:snrStep:snrMax
     else
         detectedBits = de2bi(detectedSymbolsIndex, k, 'left-msb');
     end
-%     if(isHeader)
-%         if(rxMode==0)
-%             tempIndx = size(headerBits, 1) + channelDelayInSample/8 + 1;
-%         else
-%             tempIndx = size(headerBits, 1) + 1;
-%         end
-%         ser = sum(detectedSymbolsIndex~=symbolIndex(tempIndx : end)/size(symbolIndex(tempIndx : end),1));
-%         ber = sum(sum(txBit(tempIndx : end, :)~=detectedBits))/(k*size(txBit(tempIndx : end, :),1));
-%         berList = [berList, ber];
-%     else
+
     L = length(detectedSymbolsIndex);
     ser = sum(detectedSymbolsIndex~=symbolIndex(1:L))/L;
     ber = sum(sum(txBit(1:L, :)~=detectedBits))/(k*L);
     berList = [berList, ber];
-%     end
+    
 end
-EbNo = (snrMin:snrStep:snrMax);
-semilogy(EbNo, berList);
-hold on
-berQ = berawgn(EbNo, modulation, M, 'coherent');
-semilogy(EbNo, berQ);
-legend('Simulated', 'Matlab');
-title([num2str(M), modulation, ' bit error rate']);
+if(length(snrDb)==1)
+    scatter(rxSymbols(:, 1), rxSymbols(:, 2))
+    axis equal
+    xlim([-1.5, 1.5])
+    ylim([-1.5, 1.5])
+    
+    theta = 0:0.01:2*pi;
+    r = 1;
+    hold on
+    plot(r.*cos(theta), r.*sin(theta), '--')
+else
+    EbNo = (snrMin:snrStep:snrMax);
+    semilogy(EbNo, berList);
+    hold on
+    berQ = berawgn(EbNo, modulation, M, 'coherent');
+    semilogy(EbNo, berQ);
+    legend('Simulated', 'Matlab');
+    title([num2str(M), modulation, ' bit error rate']);
+end
+
