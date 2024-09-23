@@ -114,4 +114,4 @@ title([num2str(M), modulation, ' bit error rate']);
 
 subplot(2, 1, 2)
 scatter(real(rxSymbols), imag(rxSymbols))
-axis equal
+xlim([-4, 4])

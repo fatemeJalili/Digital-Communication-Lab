@@ -15,6 +15,7 @@ for k = [1, 2, 6]
     ylabel('Magnitude(dB)')
     hold on;
 end
+title('Frequency responce of W_N(k, :)')
 legend('k=1', 'k=2', 'k=6');
 hold off;
 

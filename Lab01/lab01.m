@@ -38,16 +38,19 @@ subplot(3, 1, 1)
 plot(freq/1e6, db(abs(X), 100) + 30)
 ylabel('X(dbm)')
 xlabel('freq(MHz)')
+title('White Noise Signal')
 fprintf('Power of x: %f\n', x'*x/length(x));
 subplot(3, 1, 2)
 plot(freq/1e6, db(abs(Y), 100) + 30)
 ylabel('Y(dbm)')
 xlabel('freq(MHz)')
+title('Base Band Signal')
 fprintf('Power of y: %f\n', y'*y/length(y));
 subplot(3, 1, 3)
 plot(freq/1e6, db(abs(Z), 100) + 30)
 ylabel('Z(dbm)')
 xlabel('freq(MHz)')
+title('Intermediate Band Signal')
 fprintf('Power of z: %f\n', z'*z/length(z));
 
 % Part c

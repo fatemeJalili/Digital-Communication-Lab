@@ -1,24 +1,26 @@
 function [txSamples, cons] = pulseModulation(symbolIndex,...
-    modulation, M, fs, nSymbolSamples, pulseName , pulseShapingMode, varargin)
+    modulation, detectionMode, M, fs, nSymbolSamples, pulseName , pulseShapingMode, varargin)
     switch modulation
-        case 'non-coherent-fsk'
-            m = (0 : M-1)';
-            t = (0: 1/fs :(nSymbolSamples-1)/fs);
-            S = exp(1j * 2 * pi * (fs / (nSymbolSamples)) * m * t);
-            S = S ./ sqrt(sum(abs(S).^2, 2));
-            
-            txSamples = S(symbolIndex+1, :).';
-            txSamples = txSamples(:);
-            cons = [];
         case 'fsk'
-            m = (0 : M-1)';
-            t = (0: 1/fs :(nSymbolSamples-1)/fs);
-            S = exp(1j * 2 * pi * (fs / (2*nSymbolSamples)) * m * t);
-            S = S ./ sqrt(sum(abs(S).^2, 2));
-            
-            txSamples = S(symbolIndex+1, :).';
-            txSamples = txSamples(:);
-            cons = [];
+            if detectionMode == 'noncoherent'
+                m = (0 : M-1)';
+                t = (0: 1/fs :(nSymbolSamples-1)/fs);
+                S = exp(1j * 2 * pi * (fs / (nSymbolSamples)) * m * t);
+                S = S ./ sqrt(sum(abs(S).^2, 2));
+                
+                txSamples = S(symbolIndex+1, :).';
+                txSamples = txSamples(:);
+                cons = [];
+            else
+                m = (0 : M-1)';
+                t = (0: 1/fs :(nSymbolSamples-1)/fs);
+                S = exp(1j * 2 * pi * (fs / (2*nSymbolSamples)) * m * t);
+                S = S ./ sqrt(sum(abs(S).^2, 2));
+                
+                txSamples = S(symbolIndex+1, :).';
+                txSamples = txSamples(:);
+                cons = [];
+            end
         otherwise
             [cons, ~] = constellation(M, modulation);
             symbolArray = zeros(size(symbolIndex));

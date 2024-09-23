@@ -28,7 +28,7 @@ end
 
 %Part 3
 [txSamples, cons] = pulseModulation(symbolIndex,...
-    modulation, M, fs, nSymbolSamples, pulseName , pulseShapingMode);
+    modulation, detectionMode, M, fs, nSymbolSamples, pulseName , pulseShapingMode);
 txSamples = txSamples + 1j*eps;
 if(isHeader)
     headerSamples = txSamples(1 : size(headerBits, 1) * nSymbolSamples);
@@ -88,7 +88,7 @@ for snr = snrMin:snrStep:snrMax
         rxSamples = alpha * rxSamples * exp(1j * theta);
     end
     
-    [detectedSymbolsIndex, rxSymbols] = pulseDemodulation(rxSamples, modulation, M, fs, nSymbolSamples, pulseName , rxReceiveMode);
+    [detectedSymbolsIndex, rxSymbols] = pulseDemodulation(rxSamples, modulation, detectionMode, M, fs, nSymbolSamples, pulseName , rxReceiveMode);
     
     if(isGray==1)
         detectedBits = matrix(detectedSymbolsIndex+1, :);
@@ -112,6 +112,7 @@ if(length(snrDb)==1)
     r = 1;
     hold on
     plot(r.*cos(theta), r.*sin(theta), '--')
+    title('2-FSK (non-coherent)')
 else
     EbNo = (snrMin:snrStep:snrMax);
     semilogy(EbNo, berList);

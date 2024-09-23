@@ -1,8 +1,8 @@
 # Digital Communication Laboratory Codes
 
-This repository contains simulations related to basic digital communication methods and basics. Simulations were accomplished in different sessions. Each folder represents one session. A list of the folders and their subject is provided below.
+This repository contains simulations related to basic digital communication methods and principles. Each folder represents a specific session. Below is a list of sessions along with a brief description of their contents.
 
-## List of the sessions
+## Sessions Overview
 
 1. [PreLab01](#prelab01)
 2. [PreLab02](#prelab02)
@@ -14,60 +14,142 @@ This repository contains simulations related to basic digital communication meth
 8. [Lab05](#lab05)
 9. [Lab06](#lab06)
 
+---
+
 ## PreLab01
 
-- Working with some basic pulse shapes, plotting and observing their characteristics.
-- Deriving PSK modulation bit error rate formula and plotting it versus SNR. Also comparing it to the built-in matlab ***berawgn*** function.
-- Inspecting the effects of channel magnitude ($\alpha$) and pahse ($\phi$) on SER of PSK modulation.
+- **Topics**:
+    - Working with basic pulse shapes and analyzing their characteristics.
+    - Deriving PSK modulation bit error rate (BER) formula and plotting it versus SNR, comparing it with MATLAB’s `berawgn` function.
+    - Examining the effects of channel magnitude ($\alpha$) and phase ($\phi$) on the Symbol Error Rate (SER) of PSK modulation.
+
+<div style="display: flex; justify-content: space-between;">
+  <img src='Images/preLab01-01.jpg' alt="Pulse Shape" style="width: 48%;">
+  <img src='Images/preLab01-02.jpg' alt="PSK Modulation" style="width: 48%;">
+</div>
+
+---
 
 ## PreLab02
 
-- Implementing a way to achieve a gaussian distribution using ***CLT*** theorem.
-- Implementing digital filtering and comparing the results with the matlab ***filter*** built-in function. 
-- Working with a sample header and data sequence, and finding out how to determine start of a data transmission process using correlation and header.
-- Visualizing fft transform of a single tune signal and inspecting how different parameters (e.g. number of samples, input center frequency, and ...) affect the fft transform output.
+- **Topics**:
+    - Implementing a method to achieve a Gaussian distribution using the Central Limit Theorem (CLT).
+    - Implementing digital filtering and comparing results with MATLAB’s built-in `filter` function.
+    - Determining the start of data transmission using correlation and a predefined header.
+    - Visualizing the FFT of a single-tone signal and analyzing how various parameters (e.g., sample size, input frequency) affect the FFT output.
+
+<div style="display: flex; justify-content: space-between;">
+  <img src='Images/preLab02-01.jpg' alt="Gaussian Distribution" style="width: 48%;">
+  <img src='Images/preLab02-02.jpg' alt="FFT Visualization" style="width: 48%;">
+</div>
+
+---
 
 ## PreLab03
 
-- Using matrices to calculate DFT and spectrum of a signal.
-- Observing the impacts of a non-ideal transformation of a intermediate-band signal to base-band.
+- **Topics**:
+    - Using matrices to calculate the Discrete Fourier Transform (DFT) and signal spectrum.
+    - Observing the impact of non-ideal transformations from intermediate-band to baseband.
+
+<img src="Images/preLab03-01.jpg" alt="DFT Calculation" style="width: 48%;">
+<img src="Images/preLab03-02.jpg" alt="Spectrum Analysis" style="width: 48%;">
+
+---
 
 ## Lab01
 
-Simulations related to the white noise, filtering, base-band signals and intermediate-band signals.
+- **Topics**:
+    - Simulations related to white noise, filtering, baseband signals, and intermediate-band signals.
+
+<img src="Images/lab01-01.jpg" alt="Lab01 Simulation" style="width: 50%;">
+
+---
 
 ## Lab02
-Different steps through implementing a transmission simulation. The final goal was to send some packets of data through an ideal channel and detect them. Implemented parts are:
-- Bit generation and symbol transmission:
-    - ***bitGenerator*** function
-    - ***grayMatrixGenerator*** function
-    - bits to symbol index translation
-    - ***pulseModulation*** function that could create a sequence of samples with different pulse shapes, e.g. triangular. This function creates the samples by using either the kron or the conv method.
-- Symbol detection and bit reconstruction:
-    - ***symbolDetection*** function with correlator or matched-filter options.
-    - ***minDistanceDetector*** function
-    - symbol index to bits translation
-- We could also choose the constellation that we rather to use from below options:
+
+- **Topics**:
+    - Implementing a transmission simulation. The goal is to send data packets through an ideal channel and detect them.
+
+- **Main functions**:
+    - `bitGenerator`: Generates bits for transmission.
+    - `grayMatrixGenerator`: Generates Gray code matrix for encoding.
+    - `pulseModulation`: Modulates bits with different pulse shapes (e.g., triangular).
+    - `symbolDetection`: Detects symbols using correlators or matched filters.
+    - `minDistanceDetector`: Detects symbols based on minimum distance.
+
+- **Modulation schemes**:
     - PAM
-    - PSK 
+    - PSK
     - QAM
 
-***Note:*** FSK modulations (coherenet and non-coherent) were implemented in ***lab05.m***
+***Note:*** FSK modulation (coherent and non-coherent) is implemented in `lab05.m`.
+
+<img src="Images/lab02-01.jpg" alt="Transmission Simulation" style="width: 50%;">
+
+---
 
 ## Lab03
-A thorough implementation of a communication system. At the transmitter header will be transmitted followed by sequence of data bits using the same functions in Lab02. Data is transferred in a noisy channel with time delay and phase offset. At the reciever the data sequence is reconstructed same as in Lab02.
-The process was repeated for different SNRs to plot the bit error rate versus SNR curve. The results were the same as built-in matlab plots.
+
+- **Topics**:
+    - A complete implementation of a communication system, transmitting data with added noise, time delay, and phase offset.
+    - Bit Error Rate (BER) vs SNR curves were plotted and compared with MATLAB’s built-in functions.
+
+<div style="display: flex; justify-content: space-between;">
+  <img src='Images/lab03-01.jpg' alt="BER Curve" style="width: 48%;">
+  <img src='Images/lab03-02.jpg' alt="Communication System" style="width: 48%;">
+</div>
+
+---
 
 ## Lab04
-Contains two main files:
-- ***example.m:***
-    - A simple example code for getting started with ***ADALM-PLUTO (PlutoSDR)***. The code initializes the device and its required parameters. 
-    - Samples of data were sent repeatedly from the tx to rx, and data frames were plotted using matlab functions simultaneously. 
-- ***lab04.m:***
-    - A code that implements the ***lab03.m*** process on ***ADALM-PLUTO (PlutoSDR)***.
+
+- **Topics**:
+    - Implementing a simple example to get started with the **ADALM-PLUTO (PlutoSDR)**.
+    - Transmitting and receiving data using the PlutoSDR, visualized with MATLAB plots.
+
+- **Files**:
+    - `example.m`: A basic code for initializing and working with PlutoSDR.
+    - `lab04.m`: Implements the communication system from `lab03.m` on PlutoSDR.
+
+<img src="Images/lab04-01.jpg" alt="PlutoSDR Example" style="width: 50%;">
+
+---
 
 ## Lab05
-It mainly focuses on completion of ***lab03.m***, mainly addding ***FSK*** modulation and simulation of it.
+
+- **Topics**:
+    - Completion of `lab03.m` with added Frequency Shift Keying (FSK) modulation and simulation.
+
+<img src="Images/lab05-01.jpg" alt="FSK Modulation" style="width: 50%;">
+
+---
 
 ## Lab06
-Hardware implementation of ***lab05.m*** that uses ***ADALM-PLUTO (PlutoSDR)***. Same as the ***lab04.m*** with few updates.
+
+- **Topics**:
+    - Hardware implementation of `lab05.m` using **ADALM-PLUTO (PlutoSDR)**. It builds upon `lab04.m` with updates for FSK modulation.
+
+---
+
+### How to Use
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/digital-communication-lab.git
+    cd digital-communication-lab
+    ```
+
+2. Open MATLAB and navigate to the desired session folder (e.g., `PreLab01`, `Lab01`, etc.).
+
+3. Run the MATLAB scripts from the command line or MATLAB editor.
+
+---
+
+### Contributions
+
+This laboratory project was completed by:
+
+- [Salar Safardoust](https://github.com/salar-sfd)
+- [Fateme Jalili](https://github.com/fatemeJalili)
+
+

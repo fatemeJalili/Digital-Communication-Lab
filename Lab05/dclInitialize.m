@@ -10,13 +10,13 @@ rxReceiveMode = 'matched_filter';
 rxMode = 0;
 equalizerMode = 1; % Compensate Mode (0: No Compensation, 1: Amplitude Compensation, 2: Phase Compensation, 3: Compensation)
 %% Modulation Parameters
-modulation = 'non-coherent-fsk'; % Modulation Name ('psk', 'pam', 'qam', 'fsk')
+modulation = 'fsk'; % Modulation Name ('psk', 'pam', 'qam', 'fsk')
 k = 1; % Bit Per Symbol
 M = 2^k; % Modulation Order
 nSymbolSamples = 64; % Sample Per Symbol
 Ts = nSymbolSamples*ts; % Symbol Time
 isGray = 1; % Gray Code Usage Flag
-detectionMode = 'coherent'; % Modulation Detection Option ('coherent', 'noncoherent')
+detectionMode = 'noncoherent'; % Modulation Detection Option ('coherent', 'noncoherent')
 % Pulse Shape Parameters
 pulseName = 'triangular'; % Name of Pulse Shaping Function
 beta = 0.99; % Parameter for RC, RRC and Gaussian Pulse Shape
@@ -26,8 +26,8 @@ pulseShapingMode = 'conv';
 % Header Option
 isHeader = 1; % Flag For Having Packets with Header
 % SNR Bound for BER Plots
-snrMin = 40; % Minimum SNR (dB)
-snrMax = 40; % Maximum SNR (dB)
+snrMin = 30; % Minimum SNR (dB)
+snrMax = 30; % Maximum SNR (dB)
 snrStep = 0.5; % SNR Step (dB)
 snrDb = snrMin:snrStep:snrMax; % SNR Vector (dB)
 %% Channel Parameters
