@@ -147,8 +147,6 @@ This repository contains simulations related to basic digital communication meth
 
 ### Contributions
 
-This laboratory project was completed by:
-
 - [Salar Safardoust](https://github.com/salar-sfd)
 - [Fateme Jalili](https://github.com/fatemeJalili)
 
