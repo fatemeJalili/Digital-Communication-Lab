@@ -143,12 +143,6 @@ This repository contains simulations related to basic digital communication meth
 
 3. Run the MATLAB scripts from the command line or MATLAB editor.
 
----
-
-### Contributions
-
-- [Salar Safardoust](https://github.com/salar-sfd)
-- [Fateme Jalili](https://github.com/fatemeJalili)
 
 
 
