@@ -147,8 +147,9 @@ This repository contains simulations related to basic digital communication meth
 
 ### Contributions
 
-- [Salar Safardoust](https://github.com/salar-sfd)
 - [Fateme Jalili](https://github.com/fatemeJalili)
+- [Salar Safardoust](https://github.com/salar-sfd)
+
 
 
 
